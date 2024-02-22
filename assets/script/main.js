@@ -4,7 +4,7 @@ const tabla = document.getElementById('tabla');
 
 //Eventos asignados
 addRows.onclick = insertarFila;
-addRows.onchange = calcularSuma;
+//addRows.onchange = calcularSuma;
 
 
 //Funcion para insertar fila nueva en tabla
@@ -21,9 +21,9 @@ function insertarFila(){
     //Colocamos Valores en las celdas
     cell1.innerHTML = '<td><input class="form-control" type="text" placeholder="Descripcion"></td>';
     cell2.innerHTML = '<td><input class="form-control" type="text" placeholder="SKU"><td>';
-    cell3.innerHTML = '<td><input class="form-control" type="number" placeholder="1"><td>';
-    cell4.innerHTML = '<td><input class="form-control" type="number" placeholder="0.00"><td>';
-    cell5.innerHTML = '<td><input class="form-control" type="number" placeholder="0.00"><td>';
+    cell3.innerHTML = '<td><input class=" cantidad form-control" type="number" placeholder="1" onchange="calcularSubtotal(this)"><td>';
+    cell4.innerHTML = '<td><input class=" precio form-control" type="number" placeholder="0.00" onchange="calcularSubtotal(this)"><td>';
+    cell5.innerHTML = '<td><input class=" subtotal form-control" type="number" placeholder="0.00" onchange="calcularSubtotal(this)"><td>';
     cell6.innerHTML = '<td><button type="button" class="btn btn-danger" onclick="eliminarFila(this)">X</button><td>';
 }
 
@@ -33,14 +33,38 @@ function eliminarFila(button){
     fila.parentNode.removeChild(fila);
 }
 
-function calcularSuma(){
-    var tabla = document.getElementById('tabla');
-    var suma = 0;
+//Funcion asignada desde HTML
+function calcularTotales(){
+    var filas = document.querySelectorAll('#tabla tr');
+  var totalPorProducto = 0;
+  var totalGeneral = 0;
 
-    for(var i = 1; i<tabla.ariaRowSpan.length;i++){
-        var valorCelda = tabla.rows[i].cells[1].textContent || tabla.rows[i].cells[1].innerText;
-        suma +=parseFloat(valorCelda);        
+  filas.forEach(function(fila, index) {
+    if (index > 0) { // Excluir la primera fila que contiene los encabezados
+      var subtotal = parseFloat(fila.querySelector('.subtotal').value);
+      totalPorProducto += subtotal;
     }
+  });
 
-    document.getElementById('subtotal').innerText = suma;
+  var subtotales = document.querySelectorAll('.subtotal');
+  subtotales.forEach(function(subtotal) {
+    totalGeneral += parseFloat(subtotal.value);
+  });
+
+    document.getElementById('subtotal').value = totalPorProducto.toFixed(2);
+    let iva = totalPorProducto * .08;
+    document.getElementById('iva').value = iva.toFixed(2);
+    let total = totalPorProducto + iva;
+    document.getElementById('total').value = total.toFixed(2);
+
+}
+
+//Funcion usada por otra funcion
+function calcularSubtotal(input){
+    var fila = input.parentNode.parentNode;
+    var precio = parseFloat(fila.querySelector('.precio').value);
+    var cantidad = parseInt(fila.querySelector('.cantidad').value);
+    var subtotal = precio * cantidad;
+    fila.querySelector('.subtotal').value = subtotal.toFixed(2);
+    calcularTotales();
 }

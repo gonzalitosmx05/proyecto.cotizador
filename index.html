@@ -38,13 +38,13 @@
                         <input class="form-control" type="text" placeholder="SKU">                
                     </td>
                     <td>
-                        <input class="form-control" type="number" placeholder="1">                
+                        <input class=" cantidad form-control " type="number" placeholder="1" onchange="calcularSubtotal(this)" >                
                     </td>
                     <td>
-                        <input class="form-control" type="number" placeholder="0.00">            
+                        <input class=" precio form-control " type="number" placeholder="0.00" onchange="calcularSubtotal(this)" >            
                     </td>
                     <td>
-                        <input class="form-control" type="number" placeholder="0.00">
+                        <input class="subtotal form-control " type="number" placeholder="0.00">
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger">X</button>
@@ -56,15 +56,15 @@
     <div class="d-flex flex-column p-2">
         <div class=" ms-auto input-group input-group-sm mb-1 w-25">
             <span class="input-group-text" id="inputGroup-sizing-sm">Subtotal</span>
-            <input id="subtotal" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input id="subtotal" type="text" class="form-control text-end"" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
         <div class=" ms-auto input-group input-group-sm mb-1 w-25">
             <span class="input-group-text" id="inputGroup-sizing-sm">IVA</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input id="iva" type="text" class="form-control text-end"" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
         <div class="ms-auto input-group input-group-sm mb-1 w-25">
             <span class="input-group-text" id="inputGroup-sizing-sm">Total</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input id="total" type="text" class="form-control text-end"" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>  
     </div>
 
