@@ -1,7 +1,14 @@
+//Elementos en el HTML
+const addRows = document.getElementById('addRows');
+const tabla = document.getElementById('tabla');
+
+//Eventos asignados
+addRows.onclick = insertarFila;
+addRows.onchange = calcularSuma;
+
+
 //Funcion para insertar fila nueva en tabla
 function insertarFila(){
-    //Identificamos la tabla
-    var tabla = document.getElementById('tabla');
     //Creamos una nueva fila
     var fila = tabla.insertRow(); 
     //Creamos celdad en la nueva fila
@@ -20,7 +27,20 @@ function insertarFila(){
     cell6.innerHTML = '<td><button type="button" class="btn btn-danger" onclick="eliminarFila(this)">X</button><td>';
 }
 
+//Funcion asignada desde HTML
 function eliminarFila(button){
     var fila = button.parentNode.parentNode;
     fila.parentNode.removeChild(fila);
+}
+
+function calcularSuma(){
+    var tabla = document.getElementById('tabla');
+    var suma = 0;
+
+    for(var i = 1; i<tabla.ariaRowSpan.length;i++){
+        var valorCelda = tabla.rows[i].cells[1].textContent || tabla.rows[i].cells[1].innerText;
+        suma +=parseFloat(valorCelda);        
+    }
+
+    document.getElementById('subtotal').innerText = suma;
 }

@@ -13,7 +13,7 @@
   
     <div class="form-control" id="botonera">
         <button type="button" class="btn btn-primary">Generar PDF</button>
-        <button type="button" class="btn btn-success" onclick="insertarFila()">Agregar Fila</button>
+        <button id="addRows" type="button" class="btn btn-success">Agregar Fila</button>
         <button type="button" class="btn btn-warning">Limpiar</button>        
     </div>
 
@@ -52,6 +52,20 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="d-flex flex-column p-2">
+        <div class=" ms-auto input-group input-group-sm mb-1 w-25">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Subtotal</span>
+            <input id="subtotal" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class=" ms-auto input-group input-group-sm mb-1 w-25">
+            <span class="input-group-text" id="inputGroup-sizing-sm">IVA</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="ms-auto input-group input-group-sm mb-1 w-25">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Total</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>  
     </div>
 
     <script src="assets/script/bootstrap.min.js"></script>
