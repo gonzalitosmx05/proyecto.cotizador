@@ -1,11 +1,12 @@
 //Elementos en el HTML
 const addRows = document.getElementById('addRows');
 const tabla = document.getElementById('tabla');
+const pdfButton = document.getElementById('pdfButton');
+
 
 //Eventos asignados
 addRows.onclick = insertarFila;
-//addRows.onchange = calcularSuma;
-
+pdfButton.onclick = generarPDF;
 
 //Funcion para insertar fila nueva en tabla
 function insertarFila(){
@@ -67,4 +68,13 @@ function calcularSubtotal(input){
     var subtotal = precio * cantidad;
     fila.querySelector('.subtotal').value = subtotal.toFixed(2);
     calcularTotales();
+}
+
+//Funcion para Generar Archivo PDF
+function generarPDF(){
+    const {jsPDF} = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf"); 
 }
