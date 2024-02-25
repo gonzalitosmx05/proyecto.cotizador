@@ -72,9 +72,16 @@ function calcularSubtotal(input){
 
 //Funcion para Generar Archivo PDF
 function generarPDF(){
+    //Importamos la libreria 
     const {jsPDF} = window.jspdf;
+    //Creamos el objeto PDF
     const doc = new jsPDF();
-    
-    doc.text("Hello world!", 10, 10);
-    doc.save("a4.pdf"); 
+    doc.html(elementHTML, {
+      callback: function(doc) {
+          // Save the PDF
+          doc.save('sample-document.pdf');
+      }});
+
+    //Mostramos en pantalla el pdf
+    doc.output('pdfobjectnewwindow');
 }
