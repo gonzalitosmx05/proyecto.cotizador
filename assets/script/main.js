@@ -74,6 +74,7 @@ function calcularSubtotal(input){
 function generarPDF(){
     //Importamos la libreria 
     const {jsPDF} = window.jspdf;
+<<<<<<< HEAD
     //Creamos el objeto PDF
     const doc = new jsPDF();
     doc.html(elementHTML, {
@@ -84,4 +85,33 @@ function generarPDF(){
 
     //Mostramos en pantalla el pdf
     doc.output('pdfobjectnewwindow');
+=======
+    var doc = new jsPDF();
+    /*var contenido = `
+        <h1>Cotización</h1>
+        <p>Fecha: ${new Date().toLocaleDateString()}</p>
+        <p>Cliente: Juan Pérez</p>
+        <p>Productos:</p>
+        <ul>
+            <li>Producto 1 - $100</li>
+            <li>Producto 2 - $200</li>
+            <li>Producto 3 - $150</li>
+        </ul>
+        <p>Total: $450</p>
+    `;
+
+    doc.fromHTML(contenido, 15, 15, {
+        'width': 170
+    });
+
+    doc.save('cotizacion.pdf');*/
+    //Seleccionamos la fuente 
+    doc.setFont("Helvetica","bold");
+
+    //Area del Header
+    doc.text("Cotización",10,10);
+
+    doc.output('pdfobjectnewwindow');
+
+>>>>>>> cd3f22b578fb0fc1bb0be21e126a864b17f1eb2a
 }
