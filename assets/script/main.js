@@ -77,16 +77,20 @@ function generarPDF(){
     //Importamos la libreria 
     const {jsPDF} = window.jspdf;
     //window.html2canvas = html2canvas;
-    var doc = new jsPDF('p','pt','letter');
+    const base64Font = 'your-bas64-encoded-font-goes-here';
 
+    var doc = new jsPDF('p','pt','letter');
     //HEADER
     
     //Logo
     doc.addImage(LogoTipoBanner,'PNG',10,10,200,30);
 
-    doc.addFont("OpenSans-VariableFont_wdth,wght-normal.js");
-    doc.setFont("OpenSans-VariableFont_wdth,wght-normal");
-    doc.setFontType("normal");
+    
+    
+    doc.addFileToVFS('Roboto-monospace.ttf', base64Font);
+    doc.addFont('Roboto-monospace.ttf', 'Roboto', 'italic');
+
+    
     doc.text("Pueba texto",150,10);
 
     //Mostramos el PDF sin descargar
