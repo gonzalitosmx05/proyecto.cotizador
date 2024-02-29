@@ -100,7 +100,7 @@ function generarPDF(){
     doc.addFileToVFS("Roboto-Light.ttf", Roboto_Light);
     doc.addFont("Roboto-Light.ttf","Roboto_Light","normal");
 
-    doc.addImage(MarcaAgua,'PNG',200,500,500,500);
+    doc.addImage(MarcaAgua,'PNG',100,250,400,400);
     
     //HEADER  RobotoMono-VariableFont_wght
     
@@ -137,7 +137,9 @@ function generarPDF(){
     doc.text("Agente:"+agente,460,120,"right");
 
 
-
+    doc.autoTable({html:"#tabla",
+      startY:25,
+      theme:"grid"});
 
     //Mostramos el PDF sin descargar
     //doc.output('pdfobjectnewwindow');
