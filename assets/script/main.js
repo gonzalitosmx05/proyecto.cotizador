@@ -138,6 +138,14 @@ function generarPDF(){
 
 
     doc.autoTable({html:"#tabla",
+      columns: 
+         [
+          {header: 'Descripcion', dataKey: 'descri'},
+          {header: 'SKU', dataKey: 'name'},
+          {header: 'Cantidad', dataKey: 'email'},
+          {header: 'Precio U.', dataKey: 'city'},
+          {header: 'Subtotal', dataKey: 'companyName'}
+        ],
       useCss:true,
       startY:25,
       theme:"grid"});
