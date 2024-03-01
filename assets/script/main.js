@@ -138,6 +138,7 @@ function generarPDF(){
 
 
     doc.autoTable({html:"#tabla",
+      useCss:true,
       startY:25,
       theme:"grid"});
 
