@@ -128,6 +128,9 @@ function generarPDF(){
     doc.text("Telefono:",15,145);
     doc.text("Correo:",15,160);
 
+
+    let data = obtenerTabla();
+
     //Sello de Leyenda
     doc.addImage(SelloDireccion,"PNG",470,80,125,50);
     //Fechas y detalles de agentes
@@ -136,21 +139,65 @@ function generarPDF(){
     doc.text("Vigencia"+fechaTerminacion,460,105,"right");
     doc.text("Agente:"+agente,460,120,"right");
 
+    
 
-    doc.autoTable({html:"#tabla",
-      columns: 
-         [
-          {header: 'Descripcion', dataKey: 'descri'},
-          {header: 'SKU', dataKey: 'name'},
-          {header: 'Cantidad', dataKey: 'email'},
-          {header: 'Precio U.', dataKey: 'city'},
-          {header: 'Subtotal', dataKey: 'companyName'}
-        ],
-      useCss:true,
-      startY:25,
-      theme:"grid"});
+   
+
+    doc.autoTable({
+      head:[data[0]],
+      body: data.slice(1),
+      startY:180,
+      startX:10,
+      margin:10,
+      headStyles:{
+        fillColor:"#0d6efd",
+        textColor:"FFFFFF"
+      },
+      bodyStyles:{
+        fillColor:false, 
+        fontSize:9             
+      },
+      columnStyles:{
+        0:{columnWidth:300},
+        1:{columnWidth:75},
+        2:{columnWidth:60},
+        3:{columnWidth:80},
+        4:{columnWidth:80},
+      },
+      theme:'plain',
+      tableWidth: 'auto',
+      
+    });
+
+    const finalY = doc.autoTable.previous.finalY;
+
+        // Agregar texto debajo de la tabla
+        const textoDebajo = 'Texto debajo de la tabla';
+        const fontSize = 12;
+        const textWidth = doc.getStringUnitWidth(textoDebajo) * fontSize / doc.internal.scaleFactor;
+
+        // Centrar el texto debajo de la tabla
+        const startX = (doc.internal.pageSize.width - textWidth) / 2;
+        const startY = finalY + 20; // Puedes ajustar la distancia desde la tabla
+
+        doc.text(textoDebajo, startX, startY);
 
     //Mostramos el PDF sin descargar
     //doc.output('pdfobjectnewwindow');
     doc.save('Prueba.pdf');
+}
+
+function obtenerTabla(){
+  
+  const data = [];
+  for (let i = 0; i < tabla.rows.length; i++) {
+    const rowData = [];
+    for (let j = 0; j < tabla.rows[i].cells.length-1; j++) {
+      const input = tabla.rows[i].cells[j].querySelector('input');
+      rowData.push(input ? input.value : tabla.rows[i].cells[j].innerText);
+    }
+    data.push(rowData);
+  }
+
+  return data;
 }
