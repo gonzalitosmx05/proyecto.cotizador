@@ -100,44 +100,11 @@ function generarPDF(){
     doc.addFileToVFS("Roboto-Light.ttf", Roboto_Light);
     doc.addFont("Roboto-Light.ttf","Roboto_Light","normal");
 
-    doc.addImage(MarcaAgua,'PNG',100,250,400,400);
     
-    //HEADER  RobotoMono-VariableFont_wght
     
-    //Logo
-    doc.addImage(LogoTipoBanner,'PNG',15,20,200,30);
-
-    doc.setFont("Roboto_Bold");
-    doc.setFontSize(30);
-    doc.text("COTIZACIÓN",420,45);
-    doc.setFont("Roboto_Light");
-    doc.setFontSize(10);
-    doc.text("COTIZACIÓN #",423,56);
-    doc.setFont("Roboto_Bold");
-    doc.setTextColor("#E20000");
-    doc.text(folio,490,56);
-
-    //Datos del cliente
-    doc.setFontSize(11);
-    doc.setTextColor(".40");
-    doc.setFont("Roboto_Regular");
-    doc.text("Cliente:",15,85);
-    doc.text("Contacto:",15,100);
-    doc.text("Dirección:",15,115);
-    doc.text("Ciudad:",15,130);
-    doc.text("Telefono:",15,145);
-    doc.text("Correo:",15,160);
 
 
     let data = obtenerTabla();
-
-    //Sello de Leyenda
-    doc.addImage(SelloDireccion,"PNG",470,80,125,50);
-    //Fechas y detalles de agentes
-    doc.setTextColor("0.00");
-    doc.text("Fecha:"+fechaEmision,460,90,"right");
-    doc.text("Vigencia"+fechaTerminacion,460,105,"right");
-    doc.text("Agente:"+agente,460,120,"right");
 
     
 
@@ -166,6 +133,44 @@ function generarPDF(){
       },
       theme:'plain',
       tableWidth: 'auto',
+      willDrawPage: function(data){
+        //HEADER  RobotoMono-VariableFont_wght
+    
+        //Logo
+        doc.addImage(LogoTipoBanner,'PNG',15,20,200,30);
+
+        doc.setFont("Roboto_Bold");
+        doc.setFontSize(30);
+        doc.text("COTIZACIÓN",420,45);
+        doc.setFont("Roboto_Light");
+        doc.setFontSize(10);
+        doc.text("COTIZACIÓN #",423,56);
+        doc.setFont("Roboto_Bold");
+        doc.setTextColor("#E20000");
+        doc.text(folio,490,56);
+
+        //Datos del cliente
+        doc.setFontSize(11);
+        doc.setTextColor(".40");
+        doc.setFont("Roboto_Regular");
+        doc.text("Cliente:",15,85);
+        doc.text("Contacto:",15,100);
+        doc.text("Dirección:",15,115);
+        doc.text("Ciudad:",15,130);
+        doc.text("Telefono:",15,145);
+        doc.text("Correo:",15,160);
+        
+        //Sello de Leyenda
+        doc.addImage(SelloDireccion,"PNG",470,80,125,50);
+        //Fechas y detalles de agentes
+        doc.setTextColor("0.00");
+        doc.text("Fecha:"+fechaEmision,460,90,"right");
+        doc.text("Vigencia"+fechaTerminacion,460,105,"right");
+        doc.text("Agente:"+agente,460,120,"right");
+
+        //Marca de Agua para todas las paginas
+        doc.addImage(MarcaAgua,'PNG',100,250,400,400);
+      }
       
     });
 
@@ -182,8 +187,11 @@ function generarPDF(){
 
         doc.text(textoDebajo, startX, startY);
 
+
+
+
     //Mostramos el PDF sin descargar
-    //doc.output('pdfobjectnewwindow');
+    //doc.output('pdfobjectnewwindow',"prueba.pdf");
     doc.save('Prueba.pdf');
 }
 
