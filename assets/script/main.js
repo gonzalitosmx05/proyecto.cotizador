@@ -106,10 +106,11 @@ function generarPDF(){
     doc.autoTable({
       head:[data[0]],
       body: data.slice(1),
-      startX:10,
+      startX:10,    
       margin:{
         left:10,
-        top: 180
+        top: 180,
+        bottom:180
       },
       headStyles:{
         fillColor:"#0d6efd",
@@ -117,6 +118,10 @@ function generarPDF(){
       },
       bodyStyles:{
         fillColor:false, 
+        border:{
+          right:2,
+          left:2
+        },
         fontSize:9             
       },
       columnStyles:{
@@ -168,7 +173,7 @@ function generarPDF(){
         doc.addImage(MarcaAgua,'PNG',100,250,400,400);
 
         
-
+       
         //Footer
         var str = "Pagina " + doc.internal.getNumberOfPages();
 
@@ -180,8 +185,14 @@ function generarPDF(){
           ? pageSize.height
           : pageSize.getHeight();
         doc.text(str, data.settings.margin.left, pageHeight - 10);
-        
+        // Definir el color del borde
+var borderColor = [199,199,199]; // Color del borde en formato RGB
 
+// Establecer el color del borde
+doc.setLineWidth(1.5);
+doc.setDrawColor(borderColor[0], borderColor[1], borderColor[2]);
+
+        doc.cell(data.settings.margin.left, pageHeight - 150, pageSize.width-20, 80, "Estos son los terminos y condiciones relacionados a la cotizacion o tambien conocidos como las notas");
        
 
         }        
@@ -193,7 +204,7 @@ function generarPDF(){
        const cuadroAncho = 50;
        const cuadroAlto = 30;
 
-       doc.rect(cuadroX, cuadroY, cuadroAncho, cuadroAlto);
+       
 
         const finalY = doc.autoTable.previous.finalY;
 
