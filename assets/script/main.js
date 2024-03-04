@@ -100,22 +100,17 @@ function generarPDF(){
     doc.addFileToVFS("Roboto-Light.ttf", Roboto_Light);
     doc.addFont("Roboto-Light.ttf","Roboto_Light","normal");
 
-    
-    
-
-
     let data = obtenerTabla();
-
-    
-
    
 
     doc.autoTable({
       head:[data[0]],
       body: data.slice(1),
-      startY:180,
       startX:10,
-      margin:10,
+      margin:{
+        left:10,
+        top: 180
+      },
       headStyles:{
         fillColor:"#0d6efd",
         textColor:"FFFFFF"
@@ -134,8 +129,7 @@ function generarPDF(){
       theme:'plain',
       tableWidth: 'auto',
       willDrawPage: function(data){
-        //HEADER  RobotoMono-VariableFont_wght
-    
+        //HEADER      
         //Logo
         doc.addImage(LogoTipoBanner,'PNG',15,20,200,30);
 
@@ -161,8 +155,10 @@ function generarPDF(){
         doc.text("Correo:",15,160);
         
         //Sello de Leyenda
-        doc.addImage(SelloDireccion,"PNG",470,80,125,50);
+        doc.addImage(SelloDireccion,"PNG",470,80,125,50);      
+        
         //Fechas y detalles de agentes
+        doc.setFontSize(11);
         doc.setTextColor("0.00");
         doc.text("Fecha:"+fechaEmision,460,90,"right");
         doc.text("Vigencia"+fechaTerminacion,460,105,"right");
@@ -170,11 +166,36 @@ function generarPDF(){
 
         //Marca de Agua para todas las paginas
         doc.addImage(MarcaAgua,'PNG',100,250,400,400);
-      }
+
+        
+
+        //Footer
+        var str = "Pagina " + doc.internal.getNumberOfPages();
+
+        doc.setFontSize(10);
+
+        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height
+          ? pageSize.height
+          : pageSize.getHeight();
+        doc.text(str, data.settings.margin.left, pageHeight - 10);
+        
+
+       
+
+        }        
       
     });
+       // Dibujar un cuadro después de la tabla
+       const cuadroX = 20;
+       const cuadroY = doc.lastAutoTable.finalY; // Puedes ajustar la distancia desde la tabla
+       const cuadroAncho = 50;
+       const cuadroAlto = 30;
 
-    const finalY = doc.autoTable.previous.finalY;
+       doc.rect(cuadroX, cuadroY, cuadroAncho, cuadroAlto);
+
+        const finalY = doc.autoTable.previous.finalY;
 
         // Agregar texto debajo de la tabla
         const textoDebajo = 'Texto debajo de la tabla';
